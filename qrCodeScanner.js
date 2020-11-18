@@ -1,19 +1,24 @@
-const qr = window.qrcode;
+var qr = window.qrcode;
 
-const video = document.createElement("video");
-const canvasElement = document.getElementById("qr-canvas");
-const canvas = canvasElement.getContext("2d");
+var video = document.createElement("video");
+var canvasElement = document.getElementById("qr-canvas");
+var canvas = canvasElement.getContext("2d");
 
-const qrResult = document.getElementById("qr-result");
-const outputData = document.getElementById("outputData");
-const btnScanQR = document.getElementById("btn-scan-qr");
+var qrResult = document.getElementById("qr-result");
+var outputData = document.getElementById("outputData");
+var btnScanQR = document.getElementById("btn-scan-qr");
 
-let scanning = false;
+var goTo = document.getElementById("go-to-page");
+
+var scanning = false;
+
+goTo.onclick = function() {
+    window.open(outputData.innerHTML);
+}
 
 qr.callback = (res) => {
     if (res) {
         outputData.innerText = res;
-        window.open(outputData.innerText);
         scanning = false;
   
         video.srcObject.getTracks().forEach(track => {
