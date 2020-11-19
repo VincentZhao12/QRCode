@@ -13,11 +13,18 @@ var goTo = document.getElementById("go-to-page");
 var scanning = false;
 
 goTo.onclick = function() {
-    window.open(outputData.innerHTML);
+    var url = outputData.innerText;
+    try {
+        new URL(url);
+        window.open(url);
+    } catch (_) {
+        window.open("https://www.google.com/search?q=" + encodeURI(url));
+    }
 }
 
 qr.callback = (res) => {
     if (res) {
+        console.log(res);
         outputData.innerText = res;
         scanning = false;
   
